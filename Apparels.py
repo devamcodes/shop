@@ -11,8 +11,7 @@ def apparels_function():
     list_of_sizes = ['Large', 'Medium', 'Small']
     list_of_colour = ['Red', 'Blue', 'Green', 'Yellow', 'White']
 
-    user_name = input("ENTER YOUR NAME:")
-    print(f"WELCOME TO THE SHOP, Mr.{user_name.title()}.")
+
     main_menu = """
     SELECT ANY ONE OPTION FROM THE MENU:
     1. ADD APPAREL TO THE CART.
