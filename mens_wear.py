@@ -14,11 +14,17 @@ main_menu = """
 #todo: exit program option needed.
 My_cart = [
     {'Apparel': 'Apparel Type', "Size": 'Apparel Size', "Colour": 'Apparel Colour'},
-
-
-
-
 ]
+
+user_name = input("enter your name:-")
+user_name_bool = bool(user_name)
+if user_name_bool:
+    print(f"Welcome!! To the cloths shop, {user_name.title()}")
+
+else:
+    raise ValueError("Invalid Name!! Please try again...")
+
+
 user_input_menu = int(input(main_menu))
 #todo:after getting the error the loop should continue.
 while user_input_menu != 4:
