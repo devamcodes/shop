@@ -18,11 +18,28 @@ def create_cart():
     with DatabaseConnection('Cart.db') as connection:
         cursor = connection.cursor()
 
-        cursor.execute('CREATE TABLE IF NOT EXISTS cart(user_id integer primary key)')
+        cursor.execute('CREATE TABLE IF NOT EXISTS cart(user_id integer primary key, apparel_type text, apparel_size text, apparel_colour text, trouser_type text, trouser_size text, trouser-colour text, shoes_type text, shoes_size text, shoes_colour text)')
 
 
-def add_to_cart():
+def add_to_cart(user_id, apparel_type, apparel_size, apparel_colour, trouser_type, trouser_size, trouser_colour, shoes_type, shoes_size, shoes_colour):
     with DatabaseConnection('Cart.db') as connection:
         cursor = connection.cursor()
 
-        cursor.execute('')
+        cursor.execute('INSERT INTO cart VALUES(?,?,?,?,?,?,?,?,?,?)',(user_id, apparel_type, apparel_size, apparel_colour, trouser_type, trouser_size, trouser_colour, shoes_type, shoes_size, shoes_colour))
+
+
+def view_cart():
+    with DatabaseConnection('Cart.db') as connection:
+        cursor = connection.cursor()
+
+        cursor.execute('SELECT * FROM Cart')
+
+        Cart = [{"user Id":row[0], "Apparel Type":row[1], "Apparel Size":row[2], "Apparel Colour":row[3], "Trouser Type":row[4], "Trouser Size":row[5], "Trouser Colour":row[6], "Shoes Type":row[7], "Shoes Size":row[8], "Shoes Colour":row[9]} for row in cursor.fetchall()]
+        return  Cart
+
+
+def remove_from_cart(user_id):
+    with DatabaseConnection('Cart.db') as connection:
+        cursor = connection.cursor()
+
+        cursor.execute('DELETE FROM Cart WHERE user_id = ?',(user_id,))
