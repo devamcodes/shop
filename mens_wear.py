@@ -33,15 +33,73 @@ user_names.append(user_name)
 user_id = len(user_names)
 print(f"Your customer Id is {user_id}.NOTE:- Please remember this number as this maybe needed in future")
 
-def 
+
+list_of_apparels = ['T-shirt', 'Shirt', 'Jacket']
+list_of_sizes = ['Large', 'Medium', 'Small']
+list_of_colour = ['Red', 'Blue', 'Green', 'Yellow', 'White']
+
+apparel_type = """
+    TYPE OF THE APPAREL:
+    1. T-shirt.
+    2. Shirt.
+    3. Jacket.
+    -->"""
+apparel_size = """
+    SIZE OF THE APPAREL:
+    1. Large.
+    2. Medium.
+    3. Small.
+    -->"""
+apparel_colour = """
+    COLOUR OF THE APPAREL:
+    1. Red.
+    2. Blue.
+    3. Green.
+    4. Yellow.
+    5. White.
+    -->"""
+
+
+def type_of_apparel(number):
+    return list_of_apparels[number - 1]
+
+
+def size_of_apparel(number):
+    return list_of_sizes[number - 1]
+
+
+def colour_of_apparel(number):
+    return list_of_colour[number - 1]
+
+
+def purchase_cart():
+    return cart
+
+
+cart = {"Apparel Type": 0, "Apparel Size": 0, "Apparel Colour": 0}
+
+
+
+def Purchase_Apparels():
+
+    apparel_type_user_input = int(input(apparel_type))
+    value = type_of_apparel(apparel_type_user_input)
+    cart["Apparel Type"] = value
+    apparel_size_user_input = int(input(apparel_size))
+    value = size_of_apparel(apparel_size_user_input)
+    cart["Apparel Size"] = value
+    apparel_colour_user_input = int(input(apparel_colour))
+    value = colour_of_apparel(apparel_colour_user_input)
+    cart["Apparel Colour"] = value
+    print("ITEM ADDED TO CART SUCCESSFULLY")
+
 
 user_input_menu = int(input(main_menu))
 
 while user_input_menu != 5:
 
     if user_input_menu == 1:
-        from Apparels import apparels_function
-        print(apparels_function())
+        print(Purchase_Apparels())
     elif user_input_menu == 2:
         from trousers import trousers_function
         print(trousers_function())
