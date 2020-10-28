@@ -1,24 +1,25 @@
 """
-Project: apparel shop test 2.
+Project: encryption.
 Author:Devam A
 
-Description:shoes shop program is created and by making few change it can be added to the shop
-status: success
-stock: it needs database so this feature will be added later
+Description: This project is test project for encryption and decryption which can be added into shop project.
+Status: Learning.
 """
 
+from cryptography.fernet import Fernet, MultiFernet
 
+key1 = Fernet(Fernet.generate_key())
+key2 = Fernet(Fernet.generate_key())
 
+f = MultiFernet([key1, key2])
 
+token = f.encrypt(b"My name is Devam Agrawal.")
 
+print(token)
 
-    user_input = 1
-    while user_input != 3:
+d = f.decrypt(token)
 
-        user_input = int(input(main_menu))
-        if user_input == 1:
+print(d.decode())
 
-        elif user_input == 2:
-            print(f" you have selected {cart['Apparel Type']} apparel of size {cart['Apparel Size']} with {cart['Apparel Colour']} colour")
-    else:
-        print("GOING BACK TO MANI MENU.")
+name = input("enter your name:-")
+address = input("enter your address:-")
