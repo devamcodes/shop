@@ -7,7 +7,7 @@ status:ongoing.
 """
 
 from utils import database
-
+from cryptography.fernet import Fernet, MultiFernet
 main_menu = """
 1. Purchase Apparels
 2. Purchase Trousers
@@ -15,10 +15,7 @@ main_menu = """
 4. View Cart
 5. Exit The Program
 """
-#todo: exit program option needed.
-My_cart = [
-    {'Apparel': 'Apparel Type', "Size": 'Apparel Size', "Colour": 'Apparel Colour'},
-]
+
 
 user_names = []
 user_name = input("enter your name:-")
@@ -31,7 +28,7 @@ else:
 
 user_names.append(user_name)
 user_id = len(user_names)
-print(f"Your customer Id is {user_id}.NOTE:- Please remember this number as this maybe needed in future")
+print(f"Your customer Id is {user_id}.   NOTE:- Please remember this number as this maybe needed in future")
 
 
 list_of_apparels = ['T-shirt', 'Shirt', 'Jacket']
@@ -72,34 +69,49 @@ def colour_of_apparel(number):
     return list_of_colour[number - 1]
 
 
-def purchase_cart():
+"""def purchase_cart():
     return cart
 
 
 cart = {"Apparel Type": 0, "Apparel Size": 0, "Apparel Colour": 0}
-
+"""
 
 
 def Purchase_Apparels():
 
+    user_id = input("enter your user_id:-")
     apparel_type_user_input = int(input(apparel_type))
-    value = type_of_apparel(apparel_type_user_input)
-    cart["Apparel Type"] = value
     apparel_size_user_input = int(input(apparel_size))
-    value = size_of_apparel(apparel_size_user_input)
-    cart["Apparel Size"] = value
     apparel_colour_user_input = int(input(apparel_colour))
-    value = colour_of_apparel(apparel_colour_user_input)
-    cart["Apparel Colour"] = value
+    database.add_apparel_to_cart(user_id,apparel_type, apparel_size, apparel_colour)
     print("ITEM ADDED TO CART SUCCESSFULLY")
 
+def payment_method():
+    payment_method = """
+    enter the method no. you would like to pay:-
+    1) Net Banking
+    2) Debit/Credit Card
+    3) Cash
+    ->"""
+    payment_type = int(input(payment_method))
+    key1 = Fernet(Fernet.generate_key())
+    Key2 = Fernet(Fernet.generate_key())
+    f = MultiFernet([key1, Key2])
+
+    token = f.encrypt(payment_type)
+
+    print(token)
+
+    d = f.decrypt(token)
+
+    print(d.decode())
 
 user_input_menu = int(input(main_menu))
 
 while user_input_menu != 5:
 
     if user_input_menu == 1:
-        print(Purchase_Apparels())
+        Purchase_Apparels()
     elif user_input_menu == 2:
         from trousers import trousers_function
         print(trousers_function())
@@ -107,13 +119,13 @@ while user_input_menu != 5:
         from shoes import shoes_function
         print(shoes_function())
     elif user_input_menu == 4:
-        print(My_cart)
+
         print("work is still going on..")
 
     else:
         print("Invalid Input Please Try Again!!!")
     user_input_menu = int(input(main_menu))
 else:
+    payment_method()
     print("Exiting the program...")
     print("Thank you...Have A Nice Day!!!")
-
