@@ -13,6 +13,8 @@ and do them simultaneously.
 
 """
 from .database_connection import DatabaseConnection
+from utils import secondary_database_for_trousers
+
 
 def create_cart():
     with DatabaseConnection('Cart.db') as connection:
@@ -21,26 +23,26 @@ def create_cart():
         cursor.execute('CREATE TABLE IF NOT EXISTS Cart(user_id integer primary key, apparel_type text, apparel_size text, apparel_colour text, trouser_type text, trouser_size text, trouser-colour text, shoes_type text, shoes_size text, shoes_colour text)')
 
 
-def add_apparel_to_cart( apparel_type, apparel_size, apparel_colour):
+def add_apparel_to_cart(user_id, apparel_type, apparel_size, apparel_colour, trouser_type, trouser_size, trouser_colour, shoes_type, shoes_size, shoes_colour):
     with DatabaseConnection('Cart.db') as connection:
         cursor = connection.cursor()
 
-        cursor.execute('INSERT INTO Cart VALUES(?,?,?)',( apparel_type, apparel_size, apparel_colour))
+        cursor.execute('INSERT INTO Cart VALUES(?,?,?,?,?,?,?,?,?,?)',(user_id, apparel_type, apparel_size, apparel_colour, trouser_type, trouser_size, trouser_colour, shoes_type, shoes_size, shoes_colour))
 
-
-def add_trouser_to_cart( trouser_type, trouser_size, trouser_colour):
+"""
+def add_trouser_to_cart(user_id, trouser_type, trouser_size, trouser_colour):
     with DatabaseConnection('Cart.db') as connection:
         cursor = connection.cursor()
 
-        cursor.execute('INSERT INTO Cart VALUES(?,?,?',( trouser_type, trouser_size, trouser_colour))
+        cursor.execute('INSERT INTO Cart VALUES(?,?,?,?)',(user_id, trouser_type, trouser_size, trouser_colour))
 
 
-def add_shoes_to_cart(shoes_type, shoes_size, shoes_colour):
+def add_shoes_to_cart(user_id, shoes_type, shoes_size, shoes_colour):
     with DatabaseConnection('Cart.db') as connection:
         cursor = connection.cursor()
 
-        cursor.execute('INSERT INTO Cart VALUES(?,?,?)', (shoes_type, shoes_size, shoes_colour))
-
+        cursor.execute('INSERT INTO Cart VALUES(?,?,?,?)', (user_id, shoes_type, shoes_size, shoes_colour))
+"""
 def view_cart():
     with DatabaseConnection('Cart.db') as connection:
         cursor = connection.cursor()
