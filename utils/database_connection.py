@@ -8,6 +8,7 @@ Description:context manager
 import sqlite3
 
 
+
 class DatabaseConnection:
     def __init__(self, host):
         self.connection = None
